@@ -3,15 +3,35 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 <!--Bootstrap is a framework to make cool good looking websites-->
 <!--Once you paste the link above here, you can start using bootstrap framework-->
+<link href='https://fonts.googleapis.com/css?family=Satisfy' rel='stylesheet' type='text/css'> <!-- This is just for the font (from google)-->
 <link rel="stylesheet" type="text/css" href="{% static 'music/style.css' %}" />
 <!--This link is basically pointing to the file style.css stored in static folder-->
-<nav class="navbar navbar-default">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<!--bootstrap comes with some cool functionalities like creating a menu when there is no room to display all the links
+in the page(Check <button> below)-->
+
+
+
+<nav class="navbar navbar-inverse"> <!-- changing navbar-default" to inverse which inverse the colors in the toolbar-->
     <div class="container-fluid">
 
-        <!-- Logo -->
+        <!-- Header (Logo) -->
         <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#topNavBar"> <!-- #topNavBar can be any name that you give indeed-->
+                <!--This is the button that will convert to a menu bar if there isn't room to display all the links-->
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <!-- This will create that icon bar with 3 lines one below the other. Here you need to create each line,
+                 that's why it is done 3 times. You can also make it two or 1 by doing it the #times you want it-->
+            </button>
             <a class="navbar-brand" href="{% url 'music:index' %}">Viberr</a>
             <!-- Basically in the lane above is the logo for the website (brand). Viberr is the name for the logo -->
+        </div>
+
+        <!-- Items (this section all our navigator items will be collapsable -->
+        <div class="collapse navbar-collapse">
 
         </div>
 
