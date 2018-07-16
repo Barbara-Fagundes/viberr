@@ -1,32 +1,141 @@
-<img src="{{ album.album_logo}}">
+{% extends 'music/base.html' %}
 
-<h1>{{ album.album_title }}</h1>
-<h2>{{ album.artist }}</h2>
+{% block title %}{{ album }}Album Details{% endblock %} {% comment %}Here we are changing the title of this page on the browser tab{% endcomment %}
+{% block albums_active %}active{%  endblock %}
 
-{% if error_message %}
-    <p><strong>{{ error_message }}</strong></p>
-{% endif %}}
+{% block body %}
+<div class="container-fluid songs-container">
 
-<form action="{% url 'music:favorite' album.id %}" method="post">
-    {% csrf_token %} <!--CSRF token is for security-->
+    <div class="row">
+
+        {% comment %}Left Album Info{% endcomment %}
+        <div class="col -sm-4 col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <a> href="{% url 'music:detail' album.id %}">
+                        {% if album.album_logo %}
+                            <img src="{{ album.album_logo}}" style="width: 250px;">
+                        {% else %}
+                            <h3>No image to display</h3>
+                        {% endif %}
+                    </a>
+                    <h1>{{ album.album_title }} <small>{{  album.genre }}</small></h1>
+                    <h2>{{  album.artist }}</h2>
+                </div>
+            </div>
+        </div>
+
+    {% comment %} Right Song Info {% endcomment %}
+    <div class="col-sm-8 col-md-9">
+
+        <ul class="nav nav-pills" style="margin-bottom: 10px;">
+            <li role="presentation"><a href="#">Add New Song</a></li>
+        </ul>
+
+        <div class="panel panel-default">
+            <div class="panel-body">
+
+                <h3>All Songs</h3>
+
+                {% if error_message %}
+                    <p><strong>{{  error_message }}</strong></p>
+                {%  endif %}
+
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Audio File</th>
+                    <th>Favorites</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {%  for song in album.song_set.all %}
+                    <tr>
+                        <td>{{ song.song_title }}</td>
+                        <td>
+                            <a target="_blank" href="{{ song.audio_file.url }}">
+                                        <button type="button" class="btn btn-success btn-xs">
+                                            <span class="glyphicon glyphicon-play"></span>&nbsp; Play
+                                        </button>
+                            </a>
+                        </td>
+                        <td>
+                                    <a href="#" class="btn-favorite"><span class="glyphicon glyphicon-star {% if song.is_favorite %}active{% endif %}"></span></a>
+                                </td>
+                                <td>
+                                    <form action="#" method="post" style="display: inline;">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="song_id" value="{{ song.id }}" />
+                                        <button type="submit" class="btn btn-danger btn-xs">
+                                            <span class="glyphicon glyphicon-remove"></span>&nbsp; Delete
+                                        </button>
+                                    </form>
+                                </td>
+
+                    </tr>
+                {% endfor %}
+                </tbody>
+
+            </table>
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+
+</div>
+
+{% endblock %}
+
+
+   {% comment %} <img src="{{ album.album_logo}}" style="width: 250px;">
+
+    <h1>{{ album.album_title }}</h1>
+    <h2>{{ album.artist }}</h2>
+
+NO APPLIED--------------------------------------------------
+    {% if error_message %}
+        <p><strong>{{ error_message }}</strong></p>
+    {% endif %}}
+
+    <form action="{% url 'music:favorite' album.id %}" method="post">
+        {% csrf_token %} <!--CSRF token is for security-->
+END NO APPLIED-------------------------------------------------------------
+
     {% for song in album.song_set.all %}
-        <input type="radio" id="song{{ forloop.counter }}" name="song" value="{{ song.id}}"/>
-        <label for="song{{ forloop.counter }}">
-            {{ song.song_title }}
-            {% if song.is_favorite %}
-                <img src="https://www.icon2s.com/img16/16x16-blue-star-favorite.png"/>
-            {% endif %}}
-
-        </label><br>
+NO APPLIED--------------------------------------------------
+            <input type="radio" id="song{{ forloop.counter }}" name="song" value="{{ song.id}}"/>
+            <label for="song{{ forloop.counter }}">
+END NO APPLIED-------------------------------------------------------------
+        {{ song.song_title }}
+        {% if song.is_favorite %}
+            <img src="https://www.icon2s.com/img16/16x16-blue-star-favorite.png"/>
+        {% endif %}}
+        <br>
+            </label> NO APPLIED
     {% endfor %}
-    <input type="submit" value="Favorite" >
-    <!--The value is the name of the tab-->
+        <input type="submit" value="Favorite" > NO APLLIED
+        <!--The value is the name of the tab-->
 
 
-</form>
-<!--
+    </form> NO APPLIED
+{% endblock %}{% endcomment %}
+
+
+
+{% comment %}
 <ul>
-    {% for song in album.song_set.all %}
+  #  {% for song in album.song_set.all %}
     <li>{{ song.song_title }} - {{ song.file_type }}</li>
     {% endfor %}
-</ul>-->
+</ul>
+-->
+{% endcomment %}

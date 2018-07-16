@@ -1,0 +1,37 @@
+{% extends 'music/base.html' %}
+
+{% comment %}this html file is the name of your model_form.
+Eg. if your model is song, that will be song_form.
+Since we are working now with album model, we name it album_form{% endcomment %}
+
+{% block title %}Add a New Abum{% endblock %}
+{% block albums_active %}active{% endblock %}
+
+{%  block body %}
+<div class="container-fluid">
+
+    <div class="row">
+
+        <div class="col-sm-12 col-md-7">
+            <div class="panel panel-default">
+                <div class="panel-body">
+
+                    <form class="form-horizontal" action="" method="post" enctype="multipart/form-data" >
+                        {% csrf_token %}
+                        {% include 'music/form-template.html' %}
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-success">Submit</button>
+
+                            </div>
+                        </div>
+                    </form>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

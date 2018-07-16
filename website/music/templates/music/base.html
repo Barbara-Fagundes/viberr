@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Viberr{% endblock %}</title>
+
+    <!-- Loads the path to your static files -->
+
+    {% load staticfiles %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!--Once you paste the link above here, you can start using bootstrap framework-->
+    <link href='https://fonts.googleapis.com/css?family=Satisfy' rel='stylesheet' type='text/css'> <!-- This is just for the font (from google)-->
+    <link rel="stylesheet" type="text/css" href="{% static 'music/style.css' %}" />
+    <!--This link is basically pointing to the file style.css stored in static folder-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <!--bootstrap comes with some cool functionalities like creating a menu when there is no room to display all the links
+    in the page(Check <button> below)-->
+
+    <script src="{% static 'music/js/main.js' %}"></script>
+</head>
+<body>
+    <nav class="navbar navbar-inverse"> <!-- changing navbar-default" to inverse which inverse the colors in the toolbar-->
+    <div class="container-fluid">
+
+        <!-- Header (Logo) -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#topNavBar"> <!--  aria-expanded="false" #topNavBar can be any name that you give indeed-->
+                <!--This is the button that will convert to a menu bar if there isn't room to display all the links-->
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <!-- This will create that icon bar with 3 lines one below the other. Here you need to create each line,
+                 that's why it is done 3 times. You can also make it two or 1 by doing it the #times you want it-->
+            </button>
+            <a class="navbar-brand" href="{% url 'music:index' %}">Viberr</a>
+            <!-- Basically in the lane above is the logo for the website (brand). Viberr is the name for the logo -->
+        </div>
+
+        <!-- Items (this section all our navigator items will be collapsable -->
+        <div class="collapse navbar-collapse" id="topNavBar">
+
+            <ul class="nav navbar-nav">
+                <li class="{% block albums_active %}{% endblock %}">
+                    <a href="{% url 'music:index' %}">
+                        <span class="glyphicon glyphicon-cd" aria-hidden="true"></span>&nbsp;&nbsp; Albums <!--This defines the icon (CD) for the Albums tab-->
+                    </a>
+                </li>
+                <li class="{% block songs_active %}{% endblock %}">
+                    <a href="#">
+                        <span class="glyphicon glyphicon-music" aria-hidden="true"></span>&nbsp; Songs <!--This defines the icon (Music symbol) for the Songs tab-->
+                    </a>
+                </li>
+            </ul>
+
+                {% comment %}<li class="">
+                    <a href="#">
+                        <span class="glyphicon glyphicon-star" aria-hidden=""true></span>&nbsp; &lt;!&ndash;This defines the icon (Star) for the MyFav tab&ndash;&gt;
+                        My Favorites
+                    </a>{% endcomment %}
+
+            <form class="navbar-form navbar-left" role="search" method="get" action="#">
+                <div class="form-group">
+                    <input type="text" class="form-control" name="q" value="">
+                </div>
+                <button type="submit" class="btn btn-default">Search</button> <!--the class btn-default is the style of the button--->
+            </form>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li class="">
+                    <a href="{% url 'music:album-add' %}">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp; Add Album
+                    </a>
+                </li>
+                <li class="">
+                    <a href="#">
+                        <span class="glyphicon glyphicon-off" aria-hidden="true"></span>&nbsp; Logout
+                    </a>
+                </li>
+
+            </ul>
+
+        </div>
+        
+    </div>
+</nav>
+{% block body %}
+    {% comment %}we are opening a block of code named body, but it could be named any other name{% endcomment %}
+{% endblock %}
+</body>
+</html>

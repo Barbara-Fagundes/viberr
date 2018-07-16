@@ -1,14 +1,21 @@
 from django.db import models
+from django.urls import reverse
+
+#from django.contrib.auth.models import Permission, User
 
 class Album(models.Model):
     artist = models.CharField(max_length=250)
     album_title = models.CharField(max_length=500)
     genre = models.CharField(max_length=100)
     album_logo = models.CharField(max_length=1000)
+   # is_favorite = models.BooleanField(default=False)
+
+    def get_absolute_url(self):
+        return reverse('music:detail', kwargs={'pk': self.pk})
 
     def __str__(self):
         return self.album_title + ' - ' + self.artist
-        # This will list the content whenever you call Album.objects.all() in the power shell
+# This will list the content whenever you call Album.objects.all() in the power shell
 
 class Song(models.Model):
     album = models.ForeignKey(Album, on_delete=models.CASCADE)
@@ -27,5 +34,6 @@ class Song(models.Model):
 # TO DO MIGRATION:
 # go to the console (Power Shell)
 # type: python manage.py makemigrations music
+#After doing that it will display the migration changes then type: python manage.py migrate to completely apply the changes!
 # after doing that your database will be up to date with the new changes u did!
 # AFTER doing all the steps above, you need to restart the server!
